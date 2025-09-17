@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SyntheraQr</title>
+<meta name="description" content="Ultra-modern QR code generator: customizable, instant preview, clean design.">
+<link rel="shortcut icon" href="Flux_Schnell_Minimalist_and_clean_logo_for_a_tech_brand_called_0.jpg" type="image/x-icon">
+<link crossorigin href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter:wght@400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+<style>
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300" style='font-family: "Inter", "Noto Sans", sans-serif;'>
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Header -->
+<header class="sticky top-0 z-10 w-full border-b border-solid border-gray-200 bg-gray-50/80 backdrop-blur-md transition-colors duration-300">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 py-4">
+      <h2 class="text-xl font-bold tracking-tight text-gray-900">SyntheraQr</h2>
+    </div>
+    <div class="flex items-center gap-4">
+      <!-- No theme button -->
+      <button class="md:hidden" tabindex="-1" aria-hidden="true">
+        <span class="material-symbols-outlined text-2xl">menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+<!-- Main Content -->
+<main class="flex-1">
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+      <!-- Controls & Form -->
+      <div class="flex flex-col gap-8">
+        <div class="space-y-4 text-center lg:text-left">
+          <h1 class="bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold tracking-tighter text-transparent sm:text-5xl">Ultra-Modern QR Code Generator</h1>
+          <p class="text-lg text-gray-600">Create, customize, and download beautiful QR codes in seconds. Fast, reliable, and fully customizable.</p>
+        </div>
+        <form id="qr-form" class="space-y-6" autocomplete="off" onsubmit="return false;">
+          <div>
+            <label class="text-sm font-medium text-gray-700" for="qr-input">Enter text or link</label>
+            <div class="relative mt-2">
+              <span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">link</span>
+              <input class="form-input w-full rounded-lg border-gray-300 bg-white py-3 pl-10 pr-4 text-gray-900 shadow-sm transition focus:border-blue-500 focus:ring-blue-500" id="qr-input" placeholder="https://example.com" value=""/>
+            </div>
+          </div>
+          <!-- Customization -->
+          <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 class="text-xl font-semibold tracking-tight text-gray-900">Customization</h2>
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <label class="text-sm font-medium text-gray-700" for="fg-color">Foreground Color</label>
+                <div class="relative mt-2 flex items-center gap-3">
+                  <input class="h-12 w-12 p-0 appearance-none border-gray-300 rounded-lg cursor-pointer transition-colors focus:outline-none" id="fg-color" type="color" value="#0f172a"/>
+                  <span id="fg-color-hex" class="font-mono text-sm uppercase text-gray-700">#0F172A</span>
+                </div>
+              </div>
+              <div>
+                <label class="text-sm font-medium text-gray-700" for="bg-color">Background Color</label>
+                <div class="relative mt-2 flex items-center gap-3">
+                  <input class="h-12 w-12 p-0 appearance-none border-gray-300 rounded-lg cursor-pointer transition-colors focus:outline-none" id="bg-color" type="color" value="#f8fafc"/>
+                  <span id="bg-color-hex" class="font-mono text-sm uppercase text-gray-700">#F8FAFC</span>
+                </div>
+              </div>
+            </div>
+            <!-- TRANSPARENT BACKGROUND TOGGLE -->
+            <div class="flex items-center justify-between mt-3">
+              <label class="text-sm font-medium text-gray-700" for="transparent-bg">Transparent Background</label>
+              <button type="button" aria-pressed="false" id="transparent-bg-toggle" class="relative inline-flex h-6 w-12 cursor-pointer items-center rounded-full border transition-colors duration-200 border-gray-300 bg-gray-200 focus:outline-none">
+                <span class="sr-only">Enable transparent background</span>
+                <span id="transparent-bg-slider" class="inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform duration-200"></span>
+              </button>
+              <input id="transparent-bg" type="checkbox" class="hidden"/>
+            </div>
+          </div>
+          <!-- Download Buttons -->
+          <div class="space-y-4">
+            <h2 class="text-xl font-semibold tracking-tight text-gray-900">Download</h2>
+            <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+              <button type="button" data-format="png" class="qr-download flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-gray-800 text-white transition-colors hover:bg-gray-700">
+                <span class="material-symbols-outlined">image</span> <span class="text-sm font-semibold">PNG</span>
+              </button>
+              <button type="button" data-format="jpg" class="qr-download flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-gray-800 text-white transition-colors hover:bg-gray-700">
+                <span class="material-symbols-outlined">image</span> <span class="text-sm font-semibold">JPG</span>
+              </button>
+              <button type="button" data-format="svg" class="qr-download flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-gray-800 text-white transition-colors hover:bg-gray-700">
+                <span class="material-symbols-outlined">image</span> <span class="text-sm font-semibold">SVG</span>
+              </button>
+              <button type="button" data-format="webp" class="qr-download flex h-12 w-full items-center justify-center gap-2 rounded-lg bg-gray-800 text-white transition-colors hover:bg-gray-700">
+                <span class="material-symbols-outlined">image</span> <span class="text-sm font-semibold">WEBP</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- QR Code Display -->
+      <div class="flex items-center justify-center">
+        <div class="group relative aspect-square w-full max-w-md rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 p-6 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer">
+          <!-- LIVE QR CODE HERE -->
+          <div class="h-full w-full rounded-lg bg-white p-4 shadow-inner flex items-center justify-center">
+            <div id="qr-preview" class="w-full h-full overflow-hidden flex items-center justify-center"></div>
+          </div>
+          <div id="hover-download" class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-2xl bg-black/50 opacity-0 transition-opacity group-hover:opacity-100 pointer-events-auto">
+            <span class="flex items-center gap-2 rounded-full bg-white/20 px-6 py-3 text-white backdrop-blur-sm">
+              <span class="material-symbols-outlined">download</span><span>Download</span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <!-- END QR -->
+    </div>
+  </div>
+</main>
+<!-- Footer -->
+<footer class="border-t border-solid border-gray-200 bg-gray-100 py-8">
+  <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+    <p class="text-sm text-gray-500"></p>
+  </div>
+</footer>
+</div>
+<script>
+// --- TRANSPARENT BACKGROUND TOGGLE LOGIC
+const transparentToggle = document.getElementById('transparent-bg-toggle');
+const transparentCheckbox = document.getElementById('transparent-bg');
+const transparentSlider = document.getElementById('transparent-bg-slider');
+function renderTransparentToggle() {
+  if (transparentCheckbox.checked) {
+    transparentToggle.classList.remove('bg-gray-200', 'border-gray-300');
+    transparentToggle.classList.add('bg-green-500', 'border-green-600');
+    transparentSlider.style.transform = "translateX(100%)";
+  } else {
+    transparentToggle.classList.add('bg-gray-200', 'border-gray-300');
+    transparentToggle.classList.remove('bg-green-500', 'border-green-600');
+    transparentSlider.style.transform = "translateX(0)";
+  }
+}
+transparentToggle.addEventListener('click', function() {
+  transparentCheckbox.checked = !transparentCheckbox.checked;
+  renderTransparentToggle();
+  updateQR();
+});
+renderTransparentToggle();
+
+// QR GENERATION
+const qr = new QRCodeStyling({
+  width: 260,
+  height: 260,
+  margin: 4,
+  data: "",
+  dotsOptions: { color: "#0f172a", type: "rounded" },
+  backgroundOptions: { color: "#f8fafc" }
+});
+qr.append(document.getElementById("qr-preview"));
+
+function updateQR() {
+  const str = document.getElementById("qr-input").value || "https://syntheraqr.site";
+  const fg = document.getElementById("fg-color").value;
+  const bg = document.getElementById("bg-color").value;
+  const transparent = transparentCheckbox.checked;
+  qr.update({
+    data: str,
+    dotsOptions: { color: fg },
+    backgroundOptions: { color: transparent ? "transparent" : bg }
+  });
+  document.getElementById('fg-color-hex').textContent = fg.toUpperCase();
+  document.getElementById('bg-color-hex').textContent = bg.toUpperCase();
+}
+["qr-input","fg-color","bg-color"].forEach(id=>{
+  document.getElementById(id).addEventListener("input", updateQR);
+  document.getElementById(id).addEventListener("change", updateQR);
+});
+transparentCheckbox.addEventListener('change', function() {
+  renderTransparentToggle();
+  updateQR();
+});
+
+// Download handlers for format buttons
+document.querySelectorAll(".qr-download").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const fmt = btn.getAttribute("data-format");
+    qr.download({ name:"SyntheraQr", extension:fmt });
+  });
+});
+
+// Hover download on QR image overlay
+document.getElementById('hover-download').addEventListener('click', () => {
+  // Default format PNG here, can be changed if needed
+  qr.download({ name:"SyntheraQr", extension:"png" });
+});
+
+// INIT QR
+updateQR();
+</script>
+</body>
+</html>
