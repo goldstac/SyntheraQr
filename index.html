@@ -10,7 +10,6 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-E95GGNS9CN');
 </script>
 
@@ -32,7 +31,6 @@
 <link crossorigin href="https://fonts.gstatic.com/" rel="preconnect"/>
 <link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter:wght@400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700" onload="this.rel='stylesheet'" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
-<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
 <style>
@@ -61,13 +59,13 @@
       <h2 class="text-xl font-bold tracking-tight text-gray-900">SyntheraQr</h2>
     </div>
     <div class="flex items-center gap-4">
-      <!-- No theme button -->
       <button class="md:hidden" tabindex="-1" aria-hidden="true">
         <span class="material-symbols-outlined text-2xl">menu</span>
       </button>
     </div>
   </div>
 </header>
+
 <!-- Main Content -->
 <main class="flex-1">
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
@@ -75,8 +73,12 @@
       <!-- Controls & Form -->
       <div class="flex flex-col gap-8">
         <div class="space-y-4 text-center lg:text-left">
-          <h1 class="bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold tracking-tighter text-transparent sm:text-5xl">Ultra-Modern QR Code Generator</h1>
-          <p class="text-lg text-gray-600">Create, customize, and download beautiful QR codes in seconds. Fast, reliable, and fully customizable.</p>
+          <h1 class="bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-4xl font-bold tracking-tighter text-transparent sm:text-5xl">
+            Ultra-Modern QR Code Generator
+          </h1>
+          <p class="text-lg text-gray-600">
+            Create, customize, and download beautiful QR codes in seconds. Fast, reliable, and fully customizable.
+          </p>
         </div>
         <form id="qr-form" class="space-y-6" autocomplete="off" onsubmit="return false;">
           <div>
@@ -105,7 +107,6 @@
                 </div>
               </div>
             </div>
-            <!-- TRANSPARENT BACKGROUND TOGGLE -->
             <div class="flex items-center justify-between mt-3">
               <label class="text-sm font-medium text-gray-700" for="transparent-bg">Transparent Background</label>
               <button type="button" aria-pressed="false" id="transparent-bg-toggle" class="relative inline-flex h-6 w-12 cursor-pointer items-center rounded-full border transition-colors duration-200 border-gray-300 bg-gray-200 focus:outline-none">
@@ -135,10 +136,10 @@
           </div>
         </form>
       </div>
+
       <!-- QR Code Display -->
       <div class="flex items-center justify-center">
         <div class="group relative aspect-square w-full max-w-md rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 p-6 shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer">
-          <!-- LIVE QR CODE HERE -->
           <div class="h-full w-full rounded-lg bg-white p-4 shadow-inner flex items-center justify-center">
             <div id="qr-preview" class="w-full h-full overflow-hidden flex items-center justify-center"></div>
           </div>
@@ -153,15 +154,37 @@
     </div>
   </div>
 </main>
-<!-- Footer -->
+
+<!-- Footer with Privacy Link -->
 <footer class="border-t border-solid border-gray-200 bg-gray-100 py-8">
   <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-    <p class="text-sm text-gray-500"></p>
+    <p class="text-sm text-gray-500">
+      <a href="#privacy-policy"
+         class="font-medium text-gray-700 hover:text-gray-900 transition-colors">
+         Privacy Policy
+      </a>
+    </p>
   </div>
 </footer>
+
+<!-- Privacy Policy Section -->
+<section id="privacy-policy" class="bg-white py-16">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl font-bold tracking-tight text-gray-900 mb-6">Privacy Policy</h2>
+    <p class="text-lg text-gray-700 leading-relaxed mb-4">
+      At <strong>SyntheraQr</strong>, we value your privacy and are committed to protecting it.
+    </p>
+    <p class="text-lg text-gray-700 leading-relaxed">
+      <strong>We do not collect, store, or share any personal data</strong> from our users.
+      All QR code generation happens directly in your browser. 
+      No text, links, or color settings are sent to any server.
+    </p>
+  </div>
+</section>
 </div>
+
 <script>
-// --- TRANSPARENT BACKGROUND TOGGLE LOGIC
+// Transparent background toggle logic
 const transparentToggle = document.getElementById('transparent-bg-toggle');
 const transparentCheckbox = document.getElementById('transparent-bg');
 const transparentSlider = document.getElementById('transparent-bg-slider');
@@ -183,7 +206,7 @@ transparentToggle.addEventListener('click', function() {
 });
 renderTransparentToggle();
 
-// QR GENERATION
+// QR Generation
 const qr = new QRCodeStyling({
   width: 260,
   height: 260,
@@ -216,21 +239,18 @@ transparentCheckbox.addEventListener('change', function() {
   updateQR();
 });
 
-// Download handlers for format buttons
+// Download handlers
 document.querySelectorAll(".qr-download").forEach(btn => {
   btn.addEventListener("click", () => {
     const fmt = btn.getAttribute("data-format");
     qr.download({ name:"SyntheraQr", extension:fmt });
   });
 });
-
-// Hover download on QR image overlay
 document.getElementById('hover-download').addEventListener('click', () => {
-  // Default format PNG here, can be changed if needed
   qr.download({ name:"SyntheraQr", extension:"png" });
 });
 
-// INIT QR
+// Init QR
 updateQR();
 </script>
 </body>
