@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Docs – Syntheraqr CLI | SyntheraQR</title>
+<meta property="og:title" content="Syntheraqr CLI Docs">
+<meta property="og:description" content="Full documentation for the Syntheraqr CLI — install, usage, terminal preview, offline, and updates.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://syntheraqr.netlify.app/docs.html">
+<meta property="og:site_name" content="SyntheraQR">
+<meta name="description" content="Full documentation for the Syntheraqr CLI: install, usage, options, commands, terminal preview, and offline behavior.">
+<meta name="keywords" content="Syntheraqr, CLI, terminal, QR code, docs, documentation, command line">
+<meta name="author" content="SyntheraQR Team">
+<meta name="robots" content="index, follow">
+<link rel="shortcut icon" href="logo.jpg" type="image/x-icon">
+<link crossorigin href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter:wght@400;500;600;700&amp;family=Noto+Sans:wght@400;500;600;700" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<link rel="stylesheet" href="output.css">
+<style>
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+</style>
+</head>
+<body class="bg-gray-50 text-gray-900 transition-colors duration-300" style='font-family: "Inter", "Noto Sans", sans-serif;'>
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+<header class="sticky top-0 z-10 w-full border-b border-solid border-gray-200 bg-gray-50/80 backdrop-blur-md transition-colors duration-300">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center gap-3 py-4">
+      <h2 class="text-xl font-bold tracking-tight text-gray-900">Syntheraqr CLI · Docs</h2>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="/" class="text-sm font-medium text-blue-600 hover:underline">← Back to generator</a>
+    </div>
+  </div>
+</header>
+
+<main class="flex-1">
+  <div class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900">Syntheraqr CLI</h1>
+    <p class="mt-3 text-lg text-gray-600">
+      Ultra-modern QR code generator for the terminal — the same rendering
+      engine as this website, right in your shell.
+    </p>
+
+    <nav class="mt-6 flex flex-wrap gap-2 text-sm">
+      <a href="#install" class="rounded-full bg-gray-100 px-3 py-1 text-gray-700 hover:bg-gray-200">Install</a>
+      <a href="#usage" class="rounded-full bg-gray-100 px-3 py-1 text-gray-700 hover:bg-gray-200">Usage</a>
+      <a href="#options" class="rounded-full bg-gray-100 px-3 py-1 text-gray-700 hover:bg-gray-200">Options</a>
+      <a href="#commands" class="rounded-full bg-gray-100 px-3 py-1 text-gray-700 hover:bg-gray-200">Commands</a>
+      <a href="#preview" class="rounded-full bg-gray-100 px-3 py-1 text-gray-700 hover:bg-gray-200">Terminal preview</a>
+      <a href="#offline" class="rounded-full bg-gray-100 px-3 py-1 text-gray-700 hover:bg-gray-200">Offline</a>
+    </nav>
+
+    <section id="install" class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-900">Install</h2>
+      <p class="mt-2 text-sm text-gray-600">Linux and macOS — one line:</p>
+      <code class="mt-3 block overflow-x-auto rounded-lg bg-gray-900 px-4 py-3 text-sm text-green-400">curl -fsSL https://syntheraqr.netlify.app/install | bash</code>
+      <p class="mt-3 text-sm text-gray-600">
+        Installs to <code class="rounded bg-gray-100 px-1">~/.local/bin/syntheraqr</code> from a prebuilt
+        GitHub release, falling back to a source build if no binary matches your
+        system. Set <code class="rounded bg-gray-100 px-1">SYNTHERAQR_DEST</code> to install elsewhere.
+      </p>
+    </section>
+
+    <section id="usage" class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-900">Usage</h2>
+      <code class="mt-3 block overflow-x-auto rounded-lg bg-gray-900 px-4 py-3 text-sm text-gray-100">
+<pre class="text-sm text-gray-100"># Inline terminal preview (default)
+syntheraqr "https://syntheraqr.site"
+
+# Save as PNG / JPG / SVG / WebP (format from the extension)
+syntheraqr "https://syntheraqr.site" -o qr.png
+syntheraqr "hello" --style square -o hello.jpg
+syntheraqr "hello" --style dots -o dots.svg
+syntheraqr "hello" --transparent -o hello.webp
+
+# Customize like the web version
+syntheraqr "hello" --fg "#0f172a" --bg "#f8fafc" --transparent
+
+# Diagonal gradient (fg → fg2)
+syntheraqr "grad" --fg "#0f172a" --fg2 "#6366f1" -o grad.svg
+
+# Open the saved file with the system viewer
+syntheraqr "hello" -o qr.png --open
+
+# Interactive prompt when no text is given (TTY)
+syntheraqr
+
+# Unix-filter style: pipe bytes to files or other tools
+echo "https://example.com" | syntheraqr --stdout > qr.png
+syntheraqr "data" --stdout --format svg > qr.svg</pre>
+      </code>
+      <p class="mt-3 text-sm text-gray-600">
+        Text comes from the <code class="rounded bg-gray-100 px-1">TEXT</code> argument, piped stdin,
+        or an interactive prompt when run bare in a terminal.
+      </p>
+    </section>
+
+    <section id="options" class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-900">Options</h2>
+      <div class="mt-3 overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+        <table class="w-full text-left text-sm">
+          <thead class="border-b border-gray-200 bg-gray-50 text-gray-700">
+            <tr>
+              <th class="px-4 py-3 font-medium">Option</th>
+              <th class="px-4 py-3 font-medium">Description</th>
+              <th class="px-4 py-3 font-medium">Default</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 text-gray-600">
+            <tr><td class="px-4 py-2 font-mono text-xs">--fg &lt;HEX&gt;</td><td class="px-4 py-2">Foreground (dot) color</td><td class="px-4 py-2 font-mono text-xs">#0f172a</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--fg2 &lt;HEX&gt;</td><td class="px-4 py-2">Secondary color → diagonal gradient</td><td class="px-4 py-2 font-mono text-xs">off</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--bg &lt;HEX&gt;</td><td class="px-4 py-2">Background color</td><td class="px-4 py-2 font-mono text-xs">#f8fafc</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--transparent</td><td class="px-4 py-2">Transparent background</td><td class="px-4 py-2 font-mono text-xs">off</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--style rounded|square|dots</td><td class="px-4 py-2">Dot style</td><td class="px-4 py-2 font-mono text-xs">rounded</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">-e, --error L|M|Q|H</td><td class="px-4 py-2">Error correction level</td><td class="px-4 py-2 font-mono text-xs">M</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">-s, --size &lt;PX&gt;</td><td class="px-4 py-2">Output size in pixels</td><td class="px-4 py-2 font-mono text-xs">260</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">-m, --margin &lt;PX&gt;</td><td class="px-4 py-2">Quiet zone in pixels (matches the web app)</td><td class="px-4 py-2 font-mono text-xs">4</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">-o, --output &lt;FILE&gt;</td><td class="px-4 py-2">Save to file (png/jpg/jpeg/svg/webp)</td><td class="px-4 py-2 font-mono text-xs">—</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">-f, --format &lt;FMT&gt;</td><td class="px-4 py-2">Force output format</td><td class="px-4 py-2 font-mono text-xs">inferred</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--stdout</td><td class="px-4 py-2">Write image bytes to stdout</td><td class="px-4 py-2 font-mono text-xs">—</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--no-show</td><td class="px-4 py-2">Skip the terminal preview</td><td class="px-4 py-2 font-mono text-xs">off</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--open</td><td class="px-4 py-2">Open the saved file with the system viewer</td><td class="px-4 py-2 font-mono text-xs">off</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">-q, --quiet</td><td class="px-4 py-2">Suppress informational messages</td><td class="px-4 py-2 font-mono text-xs">off</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--completions &lt;SHELL&gt;</td><td class="px-4 py-2">Print shell completion script</td><td class="px-4 py-2 font-mono text-xs">—</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--force-kitty</td><td class="px-4 py-2">Force kitty graphics preview</td><td class="px-4 py-2 font-mono text-xs">—</td></tr>
+            <tr><td class="px-4 py-2 font-mono text-xs">--force-block</td><td class="px-4 py-2">Force half-block character preview</td><td class="px-4 py-2 font-mono text-xs">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="commands" class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-900">Commands</h2>
+      <div class="mt-4 space-y-6">
+        <div>
+          <h3 class="font-semibold text-gray-900">decode — read a QR back to text</h3>
+          <code class="mt-2 block overflow-x-auto rounded-lg bg-gray-900 px-4 py-3 text-sm text-gray-100">
+<pre class="text-sm text-gray-100">syntheraqr decode qr.png
+syntheraqr decode qr.png | wc -c</pre>
+          </code>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900">update — self-update from GitHub Releases</h3>
+          <code class="mt-2 block overflow-x-auto rounded-lg bg-gray-900 px-4 py-3 text-sm text-gray-100">
+<pre class="text-sm text-gray-100">syntheraqr update --check     # report installed vs latest version
+syntheraqr update             # download and install the latest version
+syntheraqr update --force     # reinstall even if already up to date</pre>
+          </code>
+          <p class="mt-2 text-sm text-gray-600">
+            Downloads the new binary, verifies it runs, and atomically replaces
+            the running executable. Requires an internet connection. Self-update
+            exists in 0.2.0+ — older installs must reinstall once via the
+            install command above.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900">completions — shell tab-completion</h3>
+          <code class="mt-2 block overflow-x-auto rounded-lg bg-gray-900 px-4 py-3 text-sm text-gray-100">
+<pre class="text-sm text-gray-100">syntheraqr --completions bash > /etc/bash_completion.d/syntheraqr
+syntheraqr --completions zsh > _syntheraqr
+syntheraqr --completions fish > syntheraqr.fish</pre>
+          </code>
+        </div>
+      </div>
+    </section>
+
+    <section id="preview" class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-900">Terminal preview</h2>
+      <p class="mt-3 text-sm text-gray-600">
+        When stdout is a TTY, the QR is rendered inline automatically. The
+        preview strips the quiet zone so the code fills the screen; saved files
+        keep your <code class="rounded bg-gray-100 px-1">--margin</code>. Both come from the same
+        rendering engine as this website.
+      </p>
+      <ul class="mt-4 space-y-3 text-sm text-gray-600">
+        <li class="flex gap-2">
+          <span class="material-symbols-outlined text-lg text-gray-400">smart_display</span>
+          <span><strong class="text-gray-900">Kitty graphics protocol</strong> — kitty, Ghostty, WezTerm,
+          iTerm2, Warp, Terminal.app. Auto-detected (env hints + a live 150 ms
+          probe); sizes itself to ~75% of the terminal and adapts on resize.
+          Override with <code class="rounded bg-gray-100 px-1">--force-kitty</code> /
+          <code class="rounded bg-gray-100 px-1">--force-block</code>.</span>
+        </li>
+        <li class="flex gap-2">
+          <span class="material-symbols-outlined text-lg text-gray-400">text_fields</span>
+          <span><strong class="text-gray-900">Half-block fallback</strong> — <code class="rounded bg-gray-100 px-1">▀</code>
+          glyphs with 24-bit truecolor everywhere else: Alacritty, xterm,
+          VS Code, tmux, SSH.</span>
+        </li>
+        <li class="flex gap-2">
+          <span class="material-symbols-outlined text-lg text-gray-400">terminal</span>
+          <span><strong class="text-gray-900">Piping</strong> — when stdout is not a TTY, image bytes are
+          written to stdout instead of previewing.</span>
+        </li>
+      </ul>
+    </section>
+
+    <section id="offline" class="mt-10">
+      <h2 class="text-xl font-semibold tracking-tight text-gray-900">Offline &amp; network</h2>
+      <p class="mt-3 text-sm text-gray-600">
+        Everything you'd do day-to-day is computed locally by the binary — no
+        internet, no external services, no CDN assets:
+      </p>
+      <ul class="mt-3 grid grid-cols-1 gap-2 text-sm text-gray-600 sm:grid-cols-2">
+        <li class="rounded-lg bg-white px-3 py-2 shadow-sm">✓ QR generation (encoding)</li>
+        <li class="rounded-lg bg-white px-3 py-2 shadow-sm">✓ All styles, colors, gradients, finder patterns</li>
+        <li class="rounded-lg bg-white px-3 py-2 shadow-sm">✓ PNG / JPG / SVG / WebP encoding</li>
+        <li class="rounded-lg bg-white px-3 py-2 shadow-sm">✓ Terminal preview (kitty + half-block)</li>
+        <li class="rounded-lg bg-white px-3 py-2 shadow-sm">✓ decode — reading QR images back to text</li>
+        <li class="rounded-lg bg-white px-3 py-2 shadow-sm">✓ Completions, help, version</li>
+      </ul>
+      <p class="mt-4 text-sm text-gray-600">
+        Only two things need the internet: <code class="rounded bg-gray-100 px-1">syntheraqr update</code>
+        (fetches the latest version from the GitHub API) and installing. Generate,
+        style, save, preview, and decode all work fully offline.
+      </p>
+    </section>
+
+    <div class="mt-12 rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-sm">
+      <p class="text-sm text-gray-600">Ready to try it?</p>
+      <code class="mt-3 block overflow-x-auto rounded-lg bg-gray-900 px-4 py-3 text-sm text-green-400">curl -fsSL https://syntheraqr.netlify.app/install | bash</code>
+      <a href="https://github.com/goldstac/synthera-qr-cli" target="_blank" rel="noopener noreferrer" class="mt-4 inline-block text-sm font-medium text-blue-600 hover:underline">
+        syntheraqr-cli on GitHub
+      </a>
+    </div>
+  </div>
+</main>
+
+<footer class="border-t border-solid border-gray-200 bg-gray-100 py-8">
+  <div class="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
+    <div class="flex justify-center gap-6 mb-4">
+      <a href="about.html" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">About</a>
+      <a href="docs.html" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">Docs</a>
+      <a href="privacy.html" class="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors">Privacy Policy</a>
+    </div>
+    <p class="text-xs text-gray-500">
+      Built by <a href="https://linktr.ee/liproductions" target="_blank" rel="noopener noreferrer" class="underline hover:text-gray-700 font-medium">LI Productions</a>
+    </p>
+  </div>
+</footer>
+</div>
+</body>
+</html>
